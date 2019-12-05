@@ -1,0 +1,12 @@
+{ 
+    "arguments": [
+        {
+            "question": "Enter the upper case name of the BLoC (for class name purposes)",
+            "name": "name"
+        },
+        {
+            "question": "Enter the lower case name of the BLoC (for package/file name purposes)",
+            "name": "nameLowerCase"
+        }
+    ]
+}
