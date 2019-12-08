@@ -1,0 +1,12 @@
+{ 
+    "arguments": [
+        {
+            "question": "Enter the upper case name of the Redux state (for class names purposes)",
+            "name": "name"
+        },
+        {
+            "question": "Enter the lower case name of the Redux state (for package/file names purposes)",
+            "name": "nameLowerCase"
+        }
+    ]
+}
