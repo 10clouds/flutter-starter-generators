@@ -8,10 +8,8 @@ class {{extra.name}}Middleware extends MiddlewareClass<AppState> {
 
   @override
   void call(Store<AppState> store, action, NextDispatcher next) {
-    switch (action.runtimeType) {
-      case ExampleAction:
-        _example(store, action, next);
-        break;
+    if (action is ExampleAction) {
+      _example(store, action, next);
     }
     next(action);
   }
