@@ -1,0 +1,12 @@
+{ 
+    "arguments": [
+        {
+            "question": "Enter the upper case name of the page (for class names purposes)",
+            "name": "name"
+        },
+        {
+            "question": "Enter the lower case name of the page (for package/file names purposes)",
+            "name": "nameLowerCase"
+        }
+    ]
+}
