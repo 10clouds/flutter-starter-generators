@@ -1,0 +1,12 @@
+{ 
+    "arguments": [
+        {
+            "question": "URL to Apple certificates repository:",
+            "name": "gitRepo"
+        },
+        {
+            "question": "Bundle ids (comma-separated):",
+            "name": "bundleIds"
+        }
+    ]
+}

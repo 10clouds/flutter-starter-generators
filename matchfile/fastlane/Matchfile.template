@@ -1,0 +1,2 @@
+git_url {{extra.gitRepo}}
+app_identifier {{extra.bundleIds}}
