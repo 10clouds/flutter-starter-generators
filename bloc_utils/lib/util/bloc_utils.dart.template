@@ -1,0 +1,14 @@
+import 'package:flutter/material.dart';
+
+import 'package:{{project.package}}/bloc/snackbar/snackbar_bloc.dart';
+import 'package:{{project.package}}/util/snackbar_message.dart';
+
+mixin BlocErrorHandler {
+  void handleException(dynamic exception, {@required SnackbarBloc snackbarBloc}) {
+    final SnackbarMessage message = SnackbarMessage.from(exception);
+    if (exception is AssertionError) {
+      debugPrint(exception.message);
+    }
+    snackbarBloc.add(SnackbarEventShow(message));
+  }
+}
