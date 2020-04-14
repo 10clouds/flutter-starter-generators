@@ -1,0 +1,20 @@
+part of 'snackbar_bloc.dart';
+
+@immutable
+abstract class SnackbarState extends Equatable {
+  const SnackbarState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class SnackbarStateInitial extends SnackbarState {}
+
+class SnackbarPresentedState extends SnackbarState {
+  SnackbarPresentedState(this.message);
+
+  final SnackbarMessage message;
+
+  @override
+  List<Object> get props => [message];
+}
