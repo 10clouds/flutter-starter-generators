@@ -1,0 +1,50 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+
+import 'package:{{project.package}}/data/repository/authentication_repository.dart';
+import 'package:{{project.package}}/bloc/snackbar/snackbar_bloc.dart';
+import 'package:{{project.package}}/util/bloc_utils.dart';
+
+part 'authentication_event.dart';
+part 'authentication_state.dart';
+
+class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> with BlocErrorHandler {
+  AuthenticationBloc({
+    @required AuthenticationRepository authenticationRepository,
+    @required SnackbarBloc snackbarBloc,
+  })  : _authenticationRepository = authenticationRepository,
+        _snackbarBloc = snackbarBloc,
+        assert(authenticationRepository != null),
+        assert(snackbarBloc != null) {
+    _authenticationRepository.isLoggedIn.listen((isLoggedIn) {
+      if (state is AuthenticatedState && isLoggedIn == false) {
+        add(LogOutEvent());
+      }
+    });
+  }
+
+  final AuthenticationRepository _authenticationRepository;
+  final SnackbarBloc _snackbarBloc;
+
+  @override
+  AuthenticationState get initialState => NotInitializedState();
+
+  @override
+  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
+    if (event is CheckAuthenticationStateEvent) {
+      yield LoadingState();
+      try {
+        _authenticationRepository.updateSessionStatus();
+        final bool isLoggedIn = await _authenticationRepository.isLoggedIn.first;
+        yield isLoggedIn ? AuthenticatedState() : NotAuthenticatedState();
+      } catch (exception) {
+        handleException(exception, snackbarBloc: _snackbarBloc);
+        yield NotAuthenticatedState();
+      }
+    } else if (event is LogOutEvent) {
+      await _authenticationRepository.logOut();
+      yield NotAuthenticatedState();
+    }
+  }
+}
