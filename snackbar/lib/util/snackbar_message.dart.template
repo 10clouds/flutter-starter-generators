@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+
+import 'package:dio/dio.dart';
+import 'package:equatable/equatable.dart';
+
+class SnackbarMessage extends Equatable {
+  SnackbarMessage(this.localized, {this.duration});
+
+  factory SnackbarMessage.from(dynamic exception) {
+    if (exception is DioError) {
+      if ([DioErrorType.SEND_TIMEOUT].contains(exception.type) ||
+          (exception.type == DioErrorType.DEFAULT && exception.message.contains('SocketException'))) {
+        return SnackbarMessage((context) => "Connection error");
+        // TODO: Use localized strings, e.g.:
+        // return SnackbarMessage((context) => S.of(context).error_network);
+      }
+    }
+
+    return SnackbarMessage((context) => "Something went wrong");
+    // TODO: Use localized strings, e.g.:
+    // return SnackbarMessage((context) => S.of(context).error_unknown);
+  }
+
+  @override
+  List<Object> get props => [];
+
+  final String Function(BuildContext context) localized;
+  final Duration duration;
+}

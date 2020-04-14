@@ -1,0 +1,24 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+
+import 'package:{{project.package}}/util/snackbar_message.dart';
+
+part 'snackbar_event.dart';
+part 'snackbar_state.dart';
+
+class SnackbarBloc extends Bloc<SnackbarEvent, SnackbarState> {
+  @override
+  SnackbarState get initialState => SnackbarStateInitial();
+
+  @override
+  Stream<SnackbarState> mapEventToState(SnackbarEvent event) async* {
+    if (event is SnackbarEventShow) {
+      if (event.message == null) {
+        yield SnackbarStateInitial();
+      }
+      yield SnackbarPresentedState(event.message);
+      yield SnackbarStateInitial();
+    }
+  }
+}
