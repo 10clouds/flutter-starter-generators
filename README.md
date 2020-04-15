@@ -16,6 +16,8 @@ Every file in directory, excluding `config.json` will be copied into project in 
 
 Generators use [Mustache](https://mustache.github.io/) templates to place variables into code and file names.
 
+You need to mark every file that needs to be processed by adding `.template` at the end of its filename.
+
 Creating new generator you can use project variables: 
 ```
 {{project.name}}
